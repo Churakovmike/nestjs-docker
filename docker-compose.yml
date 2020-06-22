@@ -20,6 +20,18 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+  db:
+    image: postgres:13-alpine
+    container_name: nestdb
+    restart: always
+    ports:
+    - 5432:5432
+    environment:
+      POSTGRES_USER: nestuser
+      POSTGRES_PASSWORD: nestpass
+      POSTGRES_DB: nestdb
+    networks:
+      - nestnetwork
 
 networks:
   nestnetwork:
