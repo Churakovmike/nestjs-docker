@@ -20,6 +20,7 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+
   db:
     image: postgres:13-alpine
     container_name: nestdb
@@ -30,6 +31,19 @@ services:
       POSTGRES_USER: nestuser
       POSTGRES_PASSWORD: nestpass
       POSTGRES_DB: nestdb
+    networks:
+      - nestnetwork
+
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    hostname: "rabbit"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    labels:
+      NAME: "rabbitmq"
+    volumes:
+      - ./rabbitmq-isolated.conf:/etc/rabbitmq/rabbitmq.config
     networks:
       - nestnetwork
 
