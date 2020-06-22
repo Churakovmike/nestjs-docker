@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  app:
+    container_name: nestapp
+    restart: always
+    build:
+      context: .
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/dist
+      - /usr/src/app/node_modules
+    ports:
+    - 3400:3000
+    - 9229:9229
+    command: npm run start:debug
+    networks:
+      - nestnetwork
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  nestnetwork:
+    driver: bridge
